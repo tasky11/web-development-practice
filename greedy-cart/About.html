@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | GreedyCart</title>
+
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #087ea4;
+            --dark-blue: #075b78;
+            --accent: #35c0e3;
+            --text: #202b38;
+            --muted: #687583;
+            --background: #f7fafc;
+            --white: #ffffff;
+            --border: #e7edf2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== ANNOUNCEMENT BAR ===== */
+        .announcement {
+            background: var(--dark-blue);
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #53606d;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .cart-link {
+            background: #eaf7fb;
+            color: var(--dark-blue);
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .cart-link:hover {
+            background: #d5eff7;
+        }
+
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            padding: 85px 7%;
+            text-align: center;
+            background: linear-gradient(
+                120deg,
+                #e8f8fc,
+                #f5fbfd 60%,
+                #d9f2f9
+            );
+        }
+
+        .eyebrow {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.2;
+            margin: 12px 0 18px;
+        }
+
+        .page-hero h1 span {
+            color: var(--primary);
+        }
+
+        .page-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        /* ===== COMMON SECTIONS ===== */
+        section {
+            padding: 70px 7%;
+        }
+
+        .section-heading {
+            margin-bottom: 25px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(26px, 3vw, 34px);
+            line-height: 1.3;
+            margin-top: 8px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        /* ===== OUR STORY ===== */
+        .story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 55px;
+            background: white;
+        }
+
+        .story-text p {
+            color: var(--muted);
+            margin-bottom: 18px;
+            font-size: 15px;
+        }
+
+        .story-visual {
+            min-height: 330px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #d9f2f9, #edf8fc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-circle {
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            background: #bde7f3;
+            position: absolute;
+        }
+
+        .story-icon {
+            position: relative;
+            font-size: 110px;
+            z-index: 1;
+        }
+
+        .story-caption {
+            position: absolute;
+            bottom: 22px;
+            background: white;
+            color: var(--dark-blue);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(0, 60, 80, 0.08);
+        }
+
+        /* ===== MISSION AND VISION ===== */
+        .mission-section {
+            background: var(--background);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .mission-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 30px;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(30, 70, 90, 0.08);
+        }
+
+        .card-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eaf7fb;
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .mission-card h3 {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .mission-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ===== VALUES ===== */
+        .values-section {
+            background: white;
+        }
+
+        .values-heading {
+            text-align: center;
+            margin-bottom: 38px;
+        }
+
+        .values-heading h2 {
+            font-size: clamp(27px, 3vw, 34px);
+            margin-top: 8px;
+        }
+
+        .values-heading p {
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .value-card {
+            padding: 25px 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            background: #ffffff;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30, 70, 90, 0.08);
+        }
+
+        .value-card .card-icon {
+            margin: 0 auto 15px;
+        }
+
+        .value-card h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .value-card p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ===== CALL TO ACTION ===== */
+        .cta {
+            margin: 0 7% 70px;
+            padding: 42px;
+            border-radius: 16px;
+            background: linear-gradient(110deg, #075b78, #087ea4);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .cta h2 {
+            font-size: clamp(24px, 3vw, 32px);
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .cta p {
+            color: #e0f5fa;
+            font-size: 14px;
+        }
+
+        .primary-btn {
+            display: inline-block;
+            flex-shrink: 0;
+            background: white;
+            color: var(--dark-blue);
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .primary-btn:hover {
+            background: #e8f8fc;
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 38px 7% 18px;
+            background: #172b36;
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 28px;
+        }
+
+        .footer-description {
+            color: #c2d0d7;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .footer-links a {
+            color: #e1e9ed;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            border-top: 1px solid #344954;
+            padding-top: 18px;
+            text-align: center;
+            color: #b5c4cb;
+            font-size: 12px;
+        }
+
+        /* ===== TABLET ===== */
+        @media (max-width: 900px) {
+            header {
+                padding: 16px 4%;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 16px;
+            }
+
+            .story {
+                gap: 30px;
+            }
+
+            section {
+                padding: 55px 5%;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .cta {
+                margin: 0 5% 55px;
+                padding: 30px;
+            }
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 600px) {
+            header {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 15px 5%;
+                gap: 12px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px 20px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .cart-link {
+                padding: 8px 11px;
+            }
+
+            .page-hero {
+                padding: 60px 5%;
+            }
+
+            section {
+                padding: 45px 5%;
+            }
+
+            .story {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .story-visual {
+                min-height: 260px;
+            }
+
+            .story-circle {
+                width: 180px;
+                height: 180px;
+            }
+
+            .story-icon {
+                font-size: 85px;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                margin: 0 5% 40px;
+                padding: 28px 22px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links {
+                gap: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement">
+        <marquee>Free delivery on orders above ₹999</marquee>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <a href="greedy cart.html" class="logo">
+            Greedy<span>Cart.</span>
+        </a>
+
+        <nav>
+            <a href="greedy cart.html">Home</a>
+            <a href="Products.html">Products</a>
+            <a href="About.html" class="active">About Us</a>
+            <a href="Contact.html">Contact</a>
+        </nav>
+
+        <a href="Home.html#featured" class="cart-link">
+            🛒 Cart
+        </a>
+    </header>
+
+    <main>
+
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <span class="eyebrow">GET TO KNOW US</span>
+
+            <h1>About <span>GreedyCart</span></h1>
+
+            <p>
+                Shopping made simple, convenient, and enjoyable.
+                Discover who we are, what we believe in, and how we're
+                working to make your shopping experience better.
+            </p>
+        </section>
+
+        <!-- Our Story -->
+        <section class="story">
+            <div class="story-text">
+                <span class="eyebrow">OUR STORY</span>
+
+                <div class="section-heading">
+                    <h2>Making Everyday Shopping Better</h2>
+                </div>
+
+                <p>
+                    Welcome to GreedyCart, your online shopping destination
+                    for electronics, gadgets, and everyday essentials.
+                </p>
+
+                <p>
+                    We believe finding the products you need should be
+                    simple and convenient. Our goal is to bring a variety
+                    of products together in one easy-to-use shopping
+                    experience.
+                </p>
+
+                <p>
+                    From browsing products to exploring new finds,
+                    GreedyCart is designed to help you shop with confidence
+                    and discover something useful every time you visit.
+                </p>
+            </div>
+
+            <div class="story-visual">
+                <div class="story-circle"></div>
+                <div class="story-icon">🛍️</div>
+
+                <div class="story-caption">
+                    Your Everyday Shopping Destination
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission and Vision -->
+        <section class="mission-section">
+            <div class="section-heading">
+                <span class="eyebrow">WHAT DRIVES US</span>
+                <h2>Our Mission & Vision</h2>
+                <p>
+                    Building a shopping experience focused on convenience,
+                    value, and customer satisfaction.
+                </p>
+            </div>
+
+            <div class="mission-grid">
+                <article class="mission-card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>
+                        To make online shopping straightforward and
+                        accessible by presenting useful products in a
+                        clear, convenient, and user-friendly experience.
+                    </p>
+                </article>
+
+                <article class="mission-card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Our Vision</h3>
+                    <p>
+                        To create a trusted online shopping destination
+                        where customers can discover products easily
+                        and enjoy a smooth shopping journey.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Our Values -->
+        <section class="values-section">
+            <div class="values-heading">
+                <span class="eyebrow">OUR COMMITMENT</span>
+                <h2>What Matters to Us</h2>
+                <p>
+                    The principles that guide the GreedyCart experience.
+                </p>
+            </div>
+
+            <div class="values-grid">
+                <article class="value-card">
+                    <div class="card-icon">💎</div>
+                    <h3>Quality</h3>
+                    <p>
+                        We aim to help customers discover products
+                        that suit their needs.
+                    </p>
+                </article>
+
+                <article class="value-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Customer First</h3>
+                    <p>
+                        We value a clear, helpful, and convenient
+                        shopping experience.
+                    </p>
+                </article>
+
+                <article class="value-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Convenience</h3>
+                    <p>
+                        We keep product discovery and browsing
+                        simple and accessible.
+                    </p>
+                </article>
+
+                <article class="value-card">
+                    <div class="card-icon">🔒</div>
+                    <h3>Trust</h3>
+                    <p>
+                        We believe in clear information and
+                        transparent shopping experiences.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta">
+            <div>
+                <h2>Ready to Explore GreedyCart?</h2>
+                <p>
+                    Browse our collection and discover your next favourite.
+                </p>
+            </div>
+
+            <a href="Products.html" class="primary-btn">
+                Explore Products →
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <a href="Home.html" class="logo">
+                    Greedy<span>Cart.</span>
+                </a>
+
+                <p class="footer-description">
+                    Your everyday shopping destination.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="greedy cart.html">Home</a>
+                <a href="Products.html">Products</a>
+                <a href="About.html">About Us</a>
+                <a href="Contact.html">Contact</a>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 GreedyCart. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>

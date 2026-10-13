@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | GreedyCart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #202d3c;
+            --teal: #0784a8;
+            --dark-teal: #075c75;
+            --light-blue: #eaf8fc;
+            --text: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.7;
+        }
+
+        /* Announcement Bar */
+        .announcement {
+            background: var(--dark-teal);
+            color: white;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+
+        /* Navigation */
+        header {
+            background: white;
+            min-height: 90px;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            border-bottom: 1px solid #edf1f4;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            text-decoration: none;
+            color: var(--navy);
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--teal);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        nav a {
+            color: #354253;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--teal);
+        }
+
+        .cart-link {
+            background: var(--light-blue);
+            color: var(--dark-teal);
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .cart-link:hover {
+            background: #d9f0f8;
+        }
+
+        /* Hero Section - Matches About Page */
+        .hero {
+            background: linear-gradient(
+                115deg,
+                #edfafd 0%,
+                #f5fcfe 50%,
+                #def4fa 100%
+            );
+            min-height: 340px;
+            padding: 75px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .eyebrow {
+            color: var(--teal);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5vw, 60px);
+            line-height: 1.2;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--teal);
+        }
+
+        .hero p {
+            max-width: 730px;
+            font-size: 18px;
+            color: var(--text);
+        }
+
+        /* Contact Content */
+        .contact-section {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 75px 7%;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-intro .eyebrow {
+            margin-bottom: 8px;
+        }
+
+        .section-intro h2 {
+            font-size: clamp(28px, 3vw, 38px);
+            margin-bottom: 10px;
+        }
+
+        .section-intro p {
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 45px;
+            align-items: start;
+        }
+
+        /* Contact Information */
+        .contact-info {
+            padding: 15px 0;
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
+            font-size: 27px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .contact-info .description {
+            color: var(--text);
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 27px;
+            align-items: flex-start;
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-blue);
+            border-radius: 12px;
+            color: var(--teal);
+            font-size: 21px;
+        }
+
+        .info-item h3 {
+            font-size: 17px;
+            margin-bottom: 3px;
+        }
+
+        .info-item p,
+        .info-item a {
+            color: var(--text);
+            text-decoration: none;
+            overflow-wrap: anywhere;
+        }
+
+        .info-item a:hover {
+            color: var(--teal);
+        }
+
+        /* Form Card */
+        .contact-form {
+            padding: 35px;
+            border: 1px solid #e5edf2;
+            border-radius: 18px;
+            background: white;
+            box-shadow: 0 10px 35px rgba(26, 73, 92, 0.07);
+        }
+
+        .contact-form > p {
+            color: var(--text);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 15px;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--navy);
+            border: 1px solid #dce6ec;
+            border-radius: 9px;
+            background: #fcfdfe;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(7, 132, 168, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            background: var(--teal);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            padding: 14px 27px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--dark-teal);
+            transform: translateY(-2px);
+        }
+
+        #formMessage {
+            margin-top: 15px;
+            color: var(--dark-teal);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #f0f9fc;
+            border-top: 1px solid #e2f0f5;
+            padding: 35px 7%;
+            text-align: center;
+        }
+
+        footer .footer-logo {
+            font-size: 25px;
+            font-weight: 900;
+            color: var(--navy);
+            text-decoration: none;
+        }
+
+        footer .footer-logo span {
+            color: var(--teal);
+        }
+
+        footer p {
+            color: var(--text);
+            margin: 8px 0 15px;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #354253;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: var(--teal);
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 900px) {
+            header {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                gap: 22px;
+                flex-wrap: wrap;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .contact-info {
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 520px) {
+            header {
+                padding: 18px 5%;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            nav {
+                gap: 14px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .cart-link {
+                padding: 9px 12px;
+                font-size: 13px;
+            }
+
+            .hero {
+                min-height: 290px;
+                padding: 55px 20px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .contact-section {
+                padding: 50px 6%;
+            }
+
+            .contact-form {
+                padding: 23px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+       <marquee> Free delivery on orders above ₹999</marquee>
+    </div>
+
+    <header>
+        <a href="greedy cart.html" class="logo">
+            Greedy<span>Cart.</span>
+        </a>
+
+        <nav>
+            <a href="greedy cart.html">Home</a>
+            <a href="Products.html">Products</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html" class="active">Contact</a>
+        </nav>
+
+        <a href="GreedyCart.html#featured" class="cart-link">
+            🛒 Cart
+        </a>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="eyebrow">WE'RE HERE TO HELP</div>
+
+            <h1>Contact <span>Us</span></h1>
+
+            <p>
+                Have a question about your shopping experience?
+                Get in touch with us. We'd love to hear from you.
+            </p>
+        </section>
+
+        <section class="contact-section">
+
+            <div class="section-intro">
+                <div class="eyebrow">GET IN TOUCH</div>
+                <h2>We'd Love to Hear From You</h2>
+                <p>
+                    Whether you have a question or need assistance,
+                    we're here to help.
+                </p>
+            </div>
+
+            <div class="contact-layout">
+
+                <div class="contact-info">
+                    <h2>Let's Talk</h2>
+
+                    <p class="description">
+                        Feel free to contact us for any questions or
+                        inquiries about GreedyCart.
+                    </p>
+
+                    <div class="info-item">
+                        <div class="info-icon">✉</div>
+                        <div>
+                            <h3>Email Address</h3>
+                            <p>
+                                <a href="mailto:xyz@gmail.com">
+                                    xyz@gmail.com
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">☎</div>
+                        <div>
+                            <h3>Phone Number</h3>
+                            <p>
+                                <a href="tel:+911234567890">
+                                    +91 123 456 7890
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">⌖</div>
+                        <div>
+                            <h3>Our Address</h3>
+                            <p>
+                                Evershine City, Vasai (East),<br>
+                                Near Broadway Mall
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Send Us a Message</h2>
+
+                    <p>
+                        Fill in the form below and let us know how we can help.
+                    </p>
+
+                    <form id="contactForm">
+
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                placeholder="What can we help you with?"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                placeholder="Write your message here..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Send Message →
+                        </button>
+
+                    </form>
+
+                    <p id="formMessage" role="status"></p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <a href="greedy cart.html" class="footer-logo">
+            Greedy<span>Cart.</span>
+        </a>
+
+        <p>Making everyday shopping simple and convenient.</p>
+
+        <div class="footer-links">
+            <a href="greedy cart.html">Home</a>
+            <a href="Products.html">Products</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact</a>
+        </div>
+
+        <p>&copy; 2026 GreedyCart. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            document.getElementById("formMessage").textContent =
+                "Thank you for contacting GreedyCart! This demo form does not send emails yet.";
+
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>

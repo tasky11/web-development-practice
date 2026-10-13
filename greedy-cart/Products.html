@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products | GreedyCart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #087ea4;
+            --dark-blue: #075b78;
+            --accent: #35c0e3;
+            --text: #202b38;
+            --muted: #687583;
+            --background: #f7fafc;
+            --white: #ffffff;
+            --border: #e7edf2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* Announcement */
+        .announcement {
+            background: var(--dark-blue);
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        /* Header and Navbar */
+        header {
+            background: white;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #53606d;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .cart-link {
+            background: #eaf7fb;
+            color: var(--dark-blue);
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* Page Banner */
+        .page-hero {
+            text-align: center;
+            padding: 65px 7%;
+            background: linear-gradient(
+                120deg,
+                #e8f8fc,
+                #f5fbfd 60%,
+                #d9f2f9
+            );
+        }
+
+        .eyebrow {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(32px, 5vw, 46px);
+            line-height: 1.2;
+            margin: 12px 0;
+        }
+
+        .page-hero h1 span {
+            color: var(--primary);
+        }
+
+        .page-hero p {
+            max-width: 600px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 65px 7%;
+        }
+
+        .section-heading {
+            margin-bottom: 30px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(26px, 3vw, 34px);
+            margin-top: 8px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .product-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .product-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(30, 70, 90, 0.1);
+        }
+
+        .product-image {
+            height: 240px;
+            background: #f0f5f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .product-item:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: #e2f6fc;
+            color: var(--dark-blue);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .product-details {
+            padding: 22px;
+        }
+
+        .category {
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-details h3 {
+            font-size: 20px;
+            margin: 7px 0;
+        }
+
+        .description {
+            color: var(--muted);
+            font-size: 13px;
+            min-height: 42px;
+        }
+
+        .rating {
+            color: #e89b13;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .rating span {
+            color: var(--muted);
+            margin-left: 5px;
+        }
+
+        .product-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark-blue);
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 11px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-btn:hover {
+            background: var(--dark-blue);
+        }
+
+        /* Shopping Banner */
+        .shopping-banner {
+            margin: 0 7% 65px;
+            padding: 35px;
+            border-radius: 15px;
+            background: linear-gradient(110deg, #075b78, #087ea4);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .shopping-banner h2 {
+            font-size: clamp(23px, 3vw, 31px);
+            margin-bottom: 7px;
+        }
+
+        .shopping-banner p {
+            color: #e0f5fa;
+            font-size: 14px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            background: white;
+            color: var(--dark-blue);
+            padding: 12px 20px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .shop-btn:hover {
+            background: #e8f8fc;
+        }
+
+        /* Footer */
+        footer {
+            background: #172b36;
+            color: white;
+            padding: 35px 7% 18px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 25px;
+        }
+
+        .footer-description {
+            color: #c2d0d7;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .footer-links a {
+            color: #e1e9ed;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            border-top: 1px solid #344954;
+            padding-top: 18px;
+            text-align: center;
+            color: #b5c4cb;
+            font-size: 12px;
+        }
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            header {
+                padding: 16px 4%;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            .products-section {
+                padding: 50px 5%;
+            }
+
+            .product-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+            }
+
+            .shopping-banner {
+                margin: 0 5% 50px;
+                padding: 28px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            header {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 15px 5%;
+                gap: 12px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px 18px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .cart-link {
+                padding: 8px 11px;
+            }
+
+            .page-hero {
+                padding: 48px 5%;
+            }
+
+            .products-section {
+                padding: 42px 5%;
+            }
+
+            .product-list {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .product-image {
+                height: 260px;
+            }
+
+            .product-details {
+                padding: 20px;
+            }
+
+            .shopping-banner {
+                margin: 0 5% 40px;
+                padding: 27px 22px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links {
+                gap: 14px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement">
+        <marquee>Free delivery on orders above ₹999</marquee>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <a href="greedy cart.html" class="logo">
+            Greedy<span>Cart.</span>
+        </a>
+
+        <nav>
+            <a href="greedy cart.html">Greedy Cart</a>
+            <a href="Products.html" class="active">Products</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact</a>
+        </nav>
+
+        <a href="GreedyCart.html#featured" class="cart-link">
+            🛒 Cart
+        </a>
+    </header>
+
+    <main>
+
+        <!-- Page Banner -->
+        <section class="page-hero">
+            <span class="eyebrow">EXPLORE OUR COLLECTION</span>
+
+            <h1>Featured <span>Products</span></h1>
+
+            <p>
+                Discover electronics and everyday essentials selected
+                to make your shopping experience simple and convenient.
+            </p>
+        </section>
+
+        <!-- Product Listing -->
+        <section class="products-section" id="featured">
+
+            <div class="section-heading">
+                <span class="eyebrow">OUR COLLECTION</span>
+                <h2>Find Your Next Favourite</h2>
+                <p>Explore our featured electronics and gadgets.</p>
+            </div>
+
+            <div class="product-list">
+
+                <!-- Laptop -->
+                <article class="product-item">
+                    <div class="product-image">
+                        <span class="product-tag">Featured</span>
+                        <img src="laptop.webp" alt="Laptop">
+                    </div>
+
+                    <div class="product-details">
+                        <span class="category">Electronics</span>
+                        <h3>Premium Laptop</h3>
+
+                        <p class="description">
+                            A powerful laptop for work, study, and
+                            everyday productivity.
+                        </p>
+
+                        <div class="rating">
+                            ★★★★★ <span>Customer favourite</span>
+                        </div>
+
+                        <div class="product-bottom">
+                            <span class="price">₹1,17,999</span>
+                            <button class="add-btn" type="button"
+                                onclick="addToCart('Premium Laptop', 117999)">
+                                + Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Mobile -->
+                <article class="product-item">
+                    <div class="product-image">
+                        <span class="product-tag">Popular</span>
+                        <img src="Mobile.jpg" alt="Smartphone">
+                    </div>
+
+                    <div class="product-details">
+                        <span class="category">Mobile Phones</span>
+                        <h3>Premium Smartphone</h3>
+
+                        <p class="description">
+                            Enjoy a modern smartphone experience for
+                            communication and entertainment.
+                        </p>
+
+                        <div class="rating">
+                            ★★★★★ <span>Popular choice</span>
+                        </div>
+
+                        <div class="product-bottom">
+                            <span class="price">₹1,34,900</span>
+                            <button class="add-btn" type="button"
+                                onclick="addToCart('Premium Smartphone', 134900)">
+                                + Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Headphones -->
+                <article class="product-item">
+                    <div class="product-image">
+                        <span class="product-tag">Discover</span>
+                        <img src="headphones.webp" alt="Wireless headphones">
+                    </div>
+
+                    <div class="product-details">
+                        <span class="category">Accessories</span>
+                        <h3>Wireless Headphones</h3>
+
+                        <p class="description">
+                            Comfortable headphones for music,
+                            calls, and entertainment.
+                        </p>
+
+                        <div class="rating">
+                            ★★★★★ <span>Top pick</span>
+                        </div>
+
+                        <div class="product-bottom">
+                            <span class="price">₹4,999</span>
+                            <button class="add-btn" type="button"
+                                onclick="addToCart('Wireless Headphones', 4999)">
+                                + Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Shopping Banner -->
+        <section class="shopping-banner">
+            <div>
+                <h2>Shopping made simple.</h2>
+                <p>Explore more products with GreedyCart.</p>
+            </div>
+
+            <a href="GreedyCart.html" class="shop-btn">
+                Back to Greedy Cart →
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <a href="GreedyCart.html" class="logo">
+                    Greedy<span>Cart.</span>
+                </a>
+
+                <p class="footer-description">
+                    Your everyday shopping destination.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="greedy cart.html">Greedy Cart</a>
+                <a href="Products.html">Products</a>
+                <a href="About.html">About Us</a>
+                <a href="Contact.html">Contact</a>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 GreedyCart. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Demo Cart Interaction -->
+    <script>
+        function addToCart(productName, price) {
+            alert(
+                productName + " selected!\n" +
+                "Price: ₹" + price.toLocaleString("en-IN") +
+                "\n\nThis is a UI demo. A working cart has not been connected yet."
+            );
+        }
+    </script>
+
+</body>
+</html>
