@@ -1,0 +1,57 @@
+<!--Create a college fest registration websiste
+which shoud have welcome section
+event list
+registration form
+contact section-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Fest Registration</title>
+</head>
+
+<body>
+    <h1 style="background-color: lightblue; text-align: center;">A Warm Welcome to Our College Fest!</h1>
+    <p style="background-color: lightgray; padding: 20px;">We are thrilled to invite you to our annual college fest, a
+        celebration of talent, creativity, and camaraderie. Join us for an unforgettable experience filled with exciting
+        events, vibrant performances, and a chance to connect with fellow students. Whether you're a music enthusiast, a
+        dance lover, an art aficionado, or a foodie, there's something for everyone at our fest. Don't miss out on the
+        fun – register now and be part of the excitement!</p>
+    <ol style="background-color: lightyellow; text-align: center;">
+        <li>Music Concert</li>
+        <li>Dance Competition</li>
+        <li>Art Exhibition</li>
+        <li>Food Festival</li>
+        <li>Sports Tournament</li>
+    </ol>
+    <h2 style="background-color: lightcoral; ">Event Registration Form</h2>
+    <form style="background-color: lightgreen; padding: 20px;" action="/submit_registration" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <label for="event">Select Event:</label><br>
+        <select id="event" name="event">
+            <option value="music">Music Concert</option>
+            <option value="dance">Dance Competition</option>
+            <option value="art">Art Exhibition</option>
+            <option value="food">Food Festival</option>
+            <option value="sports">Sports Tournament</option>
+        </select><br><br>
+        <input type="submit" value="Register">
+    </form>
+    <footer style="background-color: lightblue; text-align: center; padding: 10px;">
+        <h2 style="background-color: lightpink; ">Contact Us</h2>
+        <p>&copy; 2026 College Fest. All rights reserved.</p>
+        <p>Email:xyz@gmail.com</p>
+        <p>Phone: 123-456-7890</p>
+    </footer>
+
+
+
+</body>
+
+</html>
