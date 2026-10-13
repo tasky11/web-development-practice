@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tasty Bites | Restaurant</title>
+
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        :root {
+            --orange: #ff6b22;
+            --orange-dark: #e95412;
+            --dark: #171717;
+            --text: #292929;
+            --muted: #777;
+            --cream: #fffaf4;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 85px;
+        }
+
+        body {
+            color: var(--text);
+            background: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ===== NAVBAR ===== */
+        header {
+            width: 100%;
+            background: rgba(23, 23, 23, 0.97);
+            color: white;
+            padding: 16px 7%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav ul a {
+            color: #eeeeee;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul a:hover {
+            color: var(--orange);
+        }
+
+        .nav-btn {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--orange-dark);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            min-height: clamp(420px, 78vh, 760px);
+            padding: 70px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.48),
+                    rgba(0, 0, 0, 0.63)
+                ),
+                url("restaurant.jpg");
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 850px;
+            padding: clamp(25px, 5vw, 55px);
+            background: rgba(20, 20, 20, 0.46);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-label {
+            display: inline-block;
+            color: #ffd1b7;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 66px);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #ff8b50;
+        }
+
+        .hero p {
+            color: #f3f3f3;
+            font-size: clamp(14px, 1.5vw, 18px);
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            padding: 14px 27px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.25s, background 0.25s;
+        }
+
+        .btn:hover {
+            background: var(--orange-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ===== SHARED SECTIONS ===== */
+        section:not(.hero) {
+            padding: 75px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            color: var(--orange);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 3.5vw, 38px);
+            line-height: 1.3;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== MENU SECTION ===== */
+        #menu {
+            position: relative;
+            background-color: #fff8ed;
+            background-image:
+                linear-gradient(
+                    rgba(255, 248, 237, 0.91),
+                    rgba(255, 248, 237, 0.91)
+                ),
+                url("restraurant-bg.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            min-width: 0;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 5px 22px rgba(50, 30, 10, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 14px 30px rgba(50, 30, 10, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .card:hover img {
+            transform: scale(1.04);
+        }
+
+        .card-image {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .food-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: white;
+            color: var(--orange-dark);
+            font-size: 11px;
+            font-weight: bold;
+            padding: 6px 11px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .card-content {
+            padding: 22px;
+        }
+
+        .food-category {
+            font-size: 11px;
+            color: var(--orange);
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .card-content h3 {
+            font-size: 21px;
+            margin: 5px 0 8px;
+        }
+
+        .card-content p {
+            color: var(--muted);
+            font-size: 14px;
+            min-height: 45px;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .price {
+            color: var(--orange-dark);
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .order-btn {
+            border: none;
+            border-radius: 6px;
+            background: var(--orange);
+            color: white;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .order-btn:hover {
+            background: var(--orange-dark);
+        }
+
+        /* ===== SPECIAL OFFER ===== */
+        .offer {
+            margin: 0 7% 75px;
+            padding: 45px;
+            border-radius: 16px;
+            background: linear-gradient(120deg, #251a14, #59301c);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .offer .section-label {
+            color: #ffb58d;
+        }
+
+        .offer h2 {
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.3;
+            margin: 8px 0;
+        }
+
+        .offer p {
+            color: #e2d8d2;
+            font-size: 14px;
+        }
+
+        .offer .btn {
+            flex-shrink: 0;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        #about {
+            background: white;
+        }
+
+        .about-content {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            margin-top: 35px;
+        }
+
+        .feature {
+            padding: 22px 15px;
+            border-radius: 10px;
+            background: var(--cream);
+        }
+
+        .feature .feature-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .feature p {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        #contact {
+            background: #fff8ed;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            text-align: center;
+            background: white;
+            padding: 28px 15px;
+            border-radius: 12px;
+            border: 1px solid #f0e9df;
+        }
+
+        .contact-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .contact-card h3 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .contact-card p,
+        .contact-card a {
+            color: var(--muted);
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-card a:hover {
+            color: var(--orange);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #171717;
+            color: white;
+            padding: 35px 7% 18px;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 25px;
+        }
+
+        .footer-description {
+            color: #bdbdbd;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .footer-links a {
+            color: #dddddd;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--orange);
+        }
+
+        .copyright {
+            border-top: 1px solid #393939;
+            padding-top: 18px;
+            color: #aaaaaa;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* ===== TABLET RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            header {
+                padding: 15px 4%;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 16px;
+            }
+
+            .hero {
+                min-height: 440px;
+            }
+
+            section:not(.hero) {
+                padding: 55px 5%;
+            }
+
+            .menu-container {
+                gap: 16px;
+            }
+
+            .card img {
+                height: 190px;
+            }
+
+            .card-content {
+                padding: 16px;
+            }
+
+            .card-content h3 {
+                font-size: 18px;
+            }
+
+            .offer {
+                margin: 0 5% 55px;
+                padding: 30px;
+            }
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            nav {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            nav ul {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px 20px;
+            }
+
+            nav ul a {
+                font-size: 13px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+            }
+
+            .hero {
+                min-height: 430px;
+                padding: 40px 5%;
+                background-position: center;
+            }
+
+            .hero-content {
+                padding: 28px 18px;
+                border-radius: 12px;
+            }
+
+            .hero-label {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            .hero h1 {
+                font-size: clamp(31px, 8vw, 43px);
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            section:not(.hero) {
+                padding: 45px 5%;
+            }
+
+            .section-heading {
+                margin-bottom: 27px;
+            }
+
+            .menu-container {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .card img {
+                height: 240px;
+            }
+
+            .card-content {
+                padding: 20px;
+            }
+
+            .offer {
+                margin: 0 5% 45px;
+                padding: 28px 22px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .about-features,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links {
+                gap: 14px 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <nav>
+            <a href="#" class="logo">🍽 Tasty <span>Bites.</span></a>
+
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <a href="#menu" class="nav-btn">Explore Menu</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-label">GOOD FOOD. GOOD MOOD.</span>
+
+                <h1>
+                    Welcome to<br>
+                    <span>Tasty Bites</span>
+                </h1>
+
+                <p>
+                    Fresh ingredients, authentic flavours, and memorable
+                    meals made with love. Your next favourite dish awaits.
+                </p>
+
+                <a href="#menu" class="btn">Explore Our Menu →</a>
+            </div>
+        </section>
+
+        <!-- MENU -->
+        <section id="menu">
+            <div class="section-heading">
+                <span class="section-label">MADE FRESH FOR YOU</span>
+                <h2 class="section-title">Our Special Menu</h2>
+                <p class="section-description">
+                    Discover delicious favourites prepared with fresh
+                    ingredients and a passion for great food.
+                </p>
+            </div>
+
+            <div class="menu-container">
+
+                <!-- Chicken Tikka -->
+                <article class="card">
+                    <div class="card-image">
+                        <span class="food-tag">Bestseller</span>
+                        <img src="chicken_tikka.webp"
+                             alt="Grilled chicken tikka">
+                    </div>
+
+                    <div class="card-content">
+                        <span class="food-category">Chef's Special</span>
+                        <h3>Chicken Tikka</h3>
+                        <p>
+                            Tender grilled chicken marinated in aromatic
+                            Indian spices.
+                        </p>
+
+                        <div class="card-bottom">
+                            <span class="price">₹250</span>
+                            <button class="order-btn" type="button"
+                                    onclick="orderItem('Chicken Tikka', 250)">
+                                Order Now +
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Paneer Masala -->
+                <article class="card">
+                    <div class="card-image">
+                        <span class="food-tag">Vegetarian</span>
+                        <img src="paneer_masala.webp"
+                             alt="Paneer masala curry">
+                    </div>
+
+                    <div class="card-content">
+                        <span class="food-category">Indian Favourite</span>
+                        <h3>Paneer Masala</h3>
+                        <p>
+                            Soft paneer cubes simmered in a rich, creamy
+                            and flavourful gravy.
+                        </p>
+
+                        <div class="card-bottom">
+                            <span class="price">₹300</span>
+                            <button class="order-btn" type="button"
+                                    onclick="orderItem('Paneer Masala', 300)">
+                                Order Now +
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Biryani -->
+                <article class="card">
+                    <div class="card-image">
+                        <span class="food-tag">Customer Favourite</span>
+                        <img src="biryani.webp"
+                             alt="A bowl of aromatic biryani">
+                    </div>
+
+                    <div class="card-content">
+                        <span class="food-category">Signature Dish</span>
+                        <h3>Special Biryani</h3>
+                        <p>
+                            Fragrant basmati rice layered with spices
+                            for a satisfying, flavourful meal.
+                        </p>
+
+                        <div class="card-bottom">
+                            <span class="price">₹500</span>
+                            <button class="order-btn" type="button"
+                                    onclick="orderItem('Special Biryani', 500)">
+                                Order Now +
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- SPECIAL OFFER -->
+        <section class="offer">
+            <div>
+                <span class="section-label">SOMETHING DELICIOUS AWAITS</span>
+                <h2>Good food makes every moment better.</h2>
+                <p>Bring your appetite. We'll take care of the flavour.</p>
+            </div>
+
+            <a href="#contact" class="btn">Visit Us Today →</a>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about">
+            <div class="about-content">
+                <span class="section-label">OUR STORY</span>
+                <h2 class="section-title">Made with Love, Served with Care</h2>
+
+                <p>
+                    Welcome to Tasty Bites, where delicious food and warm
+                    hospitality come together. We believe every meal should
+                    be an experience, from the first bite to the last.
+                    Our kitchen focuses on fresh ingredients, carefully
+                    prepared dishes, and flavours worth coming back for.
+                </p>
+
+                <div class="about-features">
+                    <div class="feature">
+                        <div class="feature-icon">🥬</div>
+                        <h3>Fresh Ingredients</h3>
+                        <p>Freshness and flavour in every dish.</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="feature-icon">👨‍🍳</div>
+                        <h3>Expert Chefs</h3>
+                        <p>Thoughtfully prepared meals for you.</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="feature-icon">❤️</div>
+                        <h3>Made with Care</h3>
+                        <p>Hospitality that makes you feel at home.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="section-heading">
+                <span class="section-label">WE'D LOVE TO HEAR FROM YOU</span>
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-description">
+                    Have a question or planning a visit? Contact us.
+                </p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email Us</h3>
+                    <a href="mailto:info@tastybites.com">
+                        info@tastybites.com
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Call Us</h3>
+                    <a href="tel:+919876543210">
+                        +91 98765 43210
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>Find Us</h3>
+                    <p>123 Main Street, Mumbai, India</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div>
+                <a href="#" class="logo">🍽 Tasty <span>Bites.</span></a>
+                <p class="footer-description">
+                    Fresh flavours. Happy moments. Every day.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#menu">Menu</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 Tasty Bites Restaurant. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- ORDER BUTTON INTERACTION -->
+    <script>
+        function orderItem(name, price) {
+            alert(
+                name + " selected!\nPrice: ₹" + price +
+                "\n\nOnline ordering is not connected yet."
+            );
+        }
+    </script>
+
+</body>
+</html>
