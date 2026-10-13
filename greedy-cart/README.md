@@ -10,10 +10,8 @@ This project focuses on practicing website structure and creating webpages for a
 
 - Home
 - Products
-- Product Details
-- Wishlist
-- Cart
-- Checkout
+- About Us
+- Contact
 
 ## Technologies Used
 
